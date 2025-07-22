@@ -16,18 +16,24 @@ model.eval()
 all_words = data["all_words"]
 tags = data["tags"]
 
-print("Jarvis is online! Type 'quit' to exit.")
+print("Jarvis is online!")
 while True:
     sentence = input("You: ")
     if sentence.lower() == "quit":
         break
 
     tokens = tokenize(sentence)
+    print(tokens)
     X = bag_of_words(tokens, all_words)
+    print(X)
     X = torch.from_numpy(X).float().unsqueeze(0)
+    print(X)
 
     output = model(X)
+    print(output)
     _, predicted = torch.max(output, dim=1)
+    print(_)
+    print(predicted)
     tag = tags[predicted.item()]
 
     probs = torch.softmax(output, dim=1)
